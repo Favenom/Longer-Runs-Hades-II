@@ -1,0 +1,25 @@
+name: Publish Mod
+
+# Run when a new tag is pushed (ie. via GitHub release or `git tag`)
+on: 
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # Use checkout to publish the files in your repo
+      - uses: actions/checkout@v1
+      - uses: Favenom/upload-thunderstore-package@v1.0
+        with:
+          namespace: Favenom # the thunderstore 'team' to publish under
+          description: Mod for longer runs in Hades II
+          token: ${{ secrets.TCLI_AUTH_TOKEN }}
+          name: LongerRuns # the name of the package
+          version: ${{ github.ref_name }} # Use the tag as the package version
+          community: Hades II
+          repo: https://thunderstore.io/c/hades-ii/
+          categories: | # <-- notice this pipe character
+            Mods
