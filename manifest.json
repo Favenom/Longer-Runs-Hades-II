@@ -1,6 +1,7 @@
 {
+  "namespace": "Favenom",
   "name": "Longer_Runs",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "description": "Hades II mod allowing to increase the number of rooms in Erebus and Oceanus, allowing longer runs.",
   "website_url": "https://github.com/Favenom/Longer-Runs-Hades-II",
   "contains_nsfw_content": false,

@@ -24,7 +24,3 @@ Hades II mod allowing to increase the number of rooms in Erebus and Oceanus.
 ## Usage
 
 - Edit the necessary values in the config editor tab in R2modman
-
-## Known Issues
-
-- At the moment only functional on Modimporter, will be handled
