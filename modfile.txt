@@ -1,7 +1,0 @@
-Import "LongerRuns.lua"
-
-
-To "Scripts/Main.lua"
-Import "Main.lua"
-Top Import register.lua
-Top Import config.lua
