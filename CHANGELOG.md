@@ -9,4 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- First version of the mod!
+- 1.0.0 First version of the mod!
+
+- 1.0.1 Mixed version of the mod, functional on modimporter
+
+- 1.0.2 Reverted changes to make a Hell2Modding fully functional version
+
+
