@@ -9,5 +9,6 @@ local public = {}
 ---@field Fountains number
 ---@field MultiMiniboss boolean
 ---@field NoBoss boolean
+---@field RescaleMetaRewards boolean
 
 return public

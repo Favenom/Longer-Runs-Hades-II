@@ -17,7 +17,7 @@ local function getRoomKeysByPrefix(data, prefix)
 end
 
 ---@param biomeKey string "F" or "G"
----@param basePreBossDepth number original depth of the pre‑boss room
+---@param basePreBossDepth number original depth of the pre-boss room
 ---@param extraPerBiome number extra chambers only for this biome (added to ExtraChambers)
 local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 	local roomSet = RoomSetData[biomeKey]
@@ -33,7 +33,7 @@ local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 
 	local newPreBossDepth = basePreBossDepth + totalExtra
 
-	-- 1. Move the pre‑boss room deeper
+	-- 1. Move the pre-boss room deeper
 	local preBossRoom = roomSet[biomeKey .. "_PreBoss01"]
 	if preBossRoom then
 		preBossRoom.ForceAtBiomeDepthMin = newPreBossDepth
@@ -64,7 +64,7 @@ local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 		end
 	end
 
-	-- 4. Extend mid‑shop availability
+	-- 4. Extend mid-shop availability
 	local shopRoom = roomSet[biomeKey .. "_Shop01"]
 	if shopRoom then
 		local oldMaxDepth = shopRoom.ForceAtBiomeDepthMax or 6
@@ -100,8 +100,34 @@ local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 	rom.log.info(string.format("[LongerRuns] Applied %d extra chambers to %s", totalExtra, biomeKey))
 end
 
--- Apply changes to Erebus (base pre‑boss depth = 10) and Oceanus (base depth = 13)
+-- Apply changes to Erebus (base pre-boss depth = 10) and Oceanus (base depth = 8)
 if config.enabled then
 	applyBiomeChanges("F", 10, config.ErebusExtraChambers)
-	applyBiomeChanges("G", 13, config.OceanusExtraChambers)
+	applyBiomeChanges("G", 8, config.OceanusExtraChambers)
+    
+  if config.RescaleMetaRewards then
+    -- Scale meta rewards ratio for Erebus (BaseF)
+	local erebusDepth = 10
+	local erebusExtra = config.ExtraChambers + config.ErebusExtraChambers
+	local erebusNewTotal = erebusDepth + erebusExtra
+	local erebusOriginalMajor = 1 - 0.315  -- 0.685
+	local erebusNewMajor = erebusOriginalMajor * (erebusDepth / erebusNewTotal)
+	local erebusNewMeta = 1 - erebusNewMajor
+	if RoomSetData.F and RoomSetData.F.BaseF then
+		RoomSetData.F.BaseF.TargetMetaRewardsRatio = erebusNewMeta
+		rom.log.info("[LongerRuns] Erebus meta reward ratio adjusted from 0.315 to " .. string.format("%.3f", erebusNewMeta))
+	end
+
+	-- Scale meta rewards ratio for Oceanus (BaseG)
+	local oceanusDepth = 8
+	local oceanusExtra = config.ExtraChambers + config.OceanusExtraChambers
+	local oceanusNewTotal = oceanusDepth + oceanusExtra
+	local oceanusOriginalMajor = 1 - 0.35  -- 0.65
+	local oceanusNewMajor = oceanusOriginalMajor * (oceanusDepth / oceanusNewTotal)
+	local oceanusNewMeta = 1 - oceanusNewMajor
+	if RoomSetData.G and RoomSetData.G.BaseG then
+		RoomSetData.G.BaseG.TargetMetaRewardsRatio = oceanusNewMeta
+		rom.log.info("[LongerRuns] Oceanus meta reward ratio adjusted from 0.35 to " .. string.format("%.3f", oceanusNewMeta))
+	end
+end
 end

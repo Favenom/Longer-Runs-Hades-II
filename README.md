@@ -4,6 +4,8 @@ Hades II mod allowing to increase the number of rooms in Erebus and Oceanus.
 
 ## Features
 
+- NOW FUNCTIONAL!!
+
 - Edit the global number of chambers added to every biome.
 
 - Edit the number of chambers added to specific biome.
@@ -13,6 +15,8 @@ Hades II mod allowing to increase the number of rooms in Erebus and Oceanus.
 - Allow for multiple minibosses.
 
 - Allows to skip the boss (Default: false)
+
+- Allow for a "no fun allowed" mode, which keeps the total number of Major Rewards about the same while increasing the number of Minor Rewards
 
 ## Install
 
@@ -24,3 +28,7 @@ Hades II mod allowing to increase the number of rooms in Erebus and Oceanus.
 ## Usage
 
 - Edit the necessary values in the config editor tab in R2modman
+
+## Issues
+
+- Any issues contact on the Hades Modding discord: https://discord.gg/j2WKAKNj37
