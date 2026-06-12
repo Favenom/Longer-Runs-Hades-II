@@ -97,6 +97,21 @@ local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 		end
 	end
 
+  if config.RescaleMetaRewards then
+    -- Scale meta rewards ratio for Erebus (BaseF)
+    if biomeKey == "F" then
+    local erebusNewMeta = 1 - (0.685 * (basePreBossDepth/newPreBossDepth))
+		RoomSetData.F.BaseF.TargetMetaRewardsRatio = erebusNewMeta
+		rom.log.info("[LongerRuns] Erebus meta reward ratio adjusted from 0.315 to " .. string.format("%.3f", erebusNewMeta))
+
+	-- Scale meta rewards ratio for Oceanus (BaseG)
+    elseif biomeKey == "G" then
+      local oceanusNewMeta = 1 - (0.65 * (basePreBossDepth/newPreBossDepth))
+      RoomSetData.G.BaseG.TargetMetaRewardsRatio = oceanusNewMeta
+      rom.log.info("[LongerRuns] Oceanus meta reward ratio adjusted from 0.35 to " .. string.format("%.3f", oceanusNewMeta))
+    end
+  end
+
 	rom.log.info(string.format("[LongerRuns] Applied %d extra chambers to %s", totalExtra, biomeKey))
 end
 
@@ -105,29 +120,5 @@ if config.enabled then
 	applyBiomeChanges("F", 10, config.ErebusExtraChambers)
 	applyBiomeChanges("G", 8, config.OceanusExtraChambers)
     
-  if config.RescaleMetaRewards then
-    -- Scale meta rewards ratio for Erebus (BaseF)
-	local erebusDepth = 10
-	local erebusExtra = config.ExtraChambers + config.ErebusExtraChambers
-	local erebusNewTotal = erebusDepth + erebusExtra
-	local erebusOriginalMajor = 1 - 0.315  -- 0.685
-	local erebusNewMajor = erebusOriginalMajor * (erebusDepth / erebusNewTotal)
-	local erebusNewMeta = 1 - erebusNewMajor
-	if RoomSetData.F and RoomSetData.F.BaseF then
-		RoomSetData.F.BaseF.TargetMetaRewardsRatio = erebusNewMeta
-		rom.log.info("[LongerRuns] Erebus meta reward ratio adjusted from 0.315 to " .. string.format("%.3f", erebusNewMeta))
-	end
-
-	-- Scale meta rewards ratio for Oceanus (BaseG)
-	local oceanusDepth = 8
-	local oceanusExtra = config.ExtraChambers + config.OceanusExtraChambers
-	local oceanusNewTotal = oceanusDepth + oceanusExtra
-	local oceanusOriginalMajor = 1 - 0.35  -- 0.65
-	local oceanusNewMajor = oceanusOriginalMajor * (oceanusDepth / oceanusNewTotal)
-	local oceanusNewMeta = 1 - oceanusNewMajor
-	if RoomSetData.G and RoomSetData.G.BaseG then
-		RoomSetData.G.BaseG.TargetMetaRewardsRatio = oceanusNewMeta
-		rom.log.info("[LongerRuns] Oceanus meta reward ratio adjusted from 0.35 to " .. string.format("%.3f", oceanusNewMeta))
-	end
-end
+  
 end

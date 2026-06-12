@@ -7,7 +7,7 @@ local config = {
 	Fountains = 2,                      -- maximum fountain rooms per biome (default 1)
 	MultiMiniboss = true,               -- allow multiple minibosses in the same biome
 	NoBoss = false,                     -- skip the boss room entirely (cheat)
-  RescaleMetaRewards = false,         -- activate "no fun allowed" mode in which the total number of major rewards stays the same as vanilla
+  RescaleMetaRewards = true,         -- activate "no fun allowed" mode in which the total number of major rewards stays the same as vanilla
 }
 
 local description = {
