@@ -6,7 +6,7 @@
 -- All modifications to RoomSetData are done here to ensure they persist for the entire game session
 -- and do not interfere with an ongoing run (since runs start after the mod loads).
 
-local function getRoomKeysByPrefix(data, prefix)
+function getRoomKeysByPrefix(data, prefix)
 	local keys = {}
 	for key, _ in pairs(data) do
 		if string.sub(key, 1, string.len(prefix)) == prefix then
@@ -19,7 +19,7 @@ end
 ---@param biomeKey string "F" or "G"
 ---@param basePreBossDepth number original depth of the pre-boss room
 ---@param extraPerBiome number extra chambers only for this biome (added to ExtraChambers)
-local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
+function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 	local roomSet = RoomSetData[biomeKey]
 	if not roomSet then
 		rom.log.warning("[LongerRuns] Could not find RoomSetData." .. biomeKey)
@@ -116,9 +116,9 @@ local function applyBiomeChanges(biomeKey, basePreBossDepth, extraPerBiome)
 end
 
 -- Apply changes to Erebus (base pre-boss depth = 10) and Oceanus (base depth = 8)
-if config.enabled then
-	applyBiomeChanges("F", 10, config.ErebusExtraChambers)
-	applyBiomeChanges("G", 8, config.OceanusExtraChambers)
+    if config.enabled then
+      applyBiomeChanges("F", 10, config.ErebusExtraChambers)
+      applyBiomeChanges("G", 8, config.OceanusExtraChambers)
     
   
-end
+    end

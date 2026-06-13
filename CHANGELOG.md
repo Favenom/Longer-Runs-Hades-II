@@ -15,4 +15,6 @@ All notable changes to this project will be documented in this file.
 
 - 1.1.0 Added a "no fun allowed" mode and also fixed a value which made the Oceanus biome 5 rooms bigger than it should
 
+- 1.1.1 Fixed an issue where the game had to be opened then restarted when making changes in the R2modman config editor
+
 
